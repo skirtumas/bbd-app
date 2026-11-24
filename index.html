@@ -249,7 +249,7 @@ const store={
   async load(){try{return JSON.parse(localStorage.getItem(LS_KEY)||'null');}catch(e){return null;}},
   async save(text){localStorage.setItem(LS_KEY,text);}
 };
-const blankDB=()=>({app:'bbd-garage',version:1,jobs:{},notes:{},buy:{},reminders:{},stock:{},templates:{},settings:clone(DEFAULT_SETTINGS),sync:null});
+const blankDB=()=>({app:'bbd-garage',version:1,jobs:{},notes:{},buy:{},reminders:{},stock:{},templates:{},expenses:{},payouts:{},bookcfg:{},settings:clone(DEFAULT_SETTINGS),sync:null});
 let db=blankDB();
 const S=()=>db.settings;
 let saveT=null;
@@ -261,7 +261,7 @@ function save(){
 /* ================= sync (PC and phone share this) ================= */
 const SB_URL=window.__SB_URL||'https://iozgsyngugdtaolmexwf.supabase.co';
 const SB_KEY='sb_publishable_cQzB1fkXjGElNFurkijtHQ_h0kmgw5W';
-const SYNC_KINDS=['jobs','notes','buy','reminders','stock','templates'];
+const SYNC_KINDS=['jobs','notes','buy','reminders','stock','templates','expenses','payouts','bookcfg'];
 const canon=v=>{
   if(v===null||v===undefined||typeof v!=='object')return JSON.stringify(v===undefined?null:v);
   if(Array.isArray(v))return '['+v.map(canon).join(',')+']';
@@ -669,7 +669,7 @@ function renderMore(){
       <div class="tl sub"><span>Jobs in total</span><span class="num">${jobs.length}</span></div></div>
     <div class="card"><h2>Sync</h2><p class="muted" style="margin:0 0 14px">Signed in as <b style="color:var(--ink)">${esc(s.email||'')}</b>. ${esc(line)}</p>
       <div class="row-btns"><button class="btn w" data-act="sync-now">Sync now</button><button class="btn danger" data-act="logout">Sign out</button></div></div>
-    <p class="muted" style="text-align:center">BBD Motorsports phone app 1.0</p>`,tabsBar());
+    <p class="muted" style="text-align:center">BBD Motorsports phone app 1.1</p>`,tabsBar());
 }
 
 /* ================= actions ================= */
